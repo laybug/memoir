@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<title>promise 的 all 方法</title>
+	</head>
+
+	<body>
+		<script>
+			// 当出现一个需求需要在两个异步操作都完成的情况下才进进行操作时，可以使用 Promise 的 all 方法
+			// 原始方法
+
+			// 记录两个异步操作完成与否
+			let async1 = false
+			let async2 = false
+
+			// 判断两个异步操作均完成的函数
+			const fullfill = () => {
+				if (async1 && async2) {
+					console.log('Successful!')
+				}
+			}
+			// 异步操作一
+			setTimeout(() => {
+				// 异步操作一的一些操作
+				// 操作完成后修改记录
+				async1 = true
+				// 判断两个异步操作是否均完成
+				fullfill()
+			}, 2000)
+			// 异步操作二
+			setTimeout(() => {
+				// 异步操作一的一些操作
+				// 操作完成后修改记录
+				async2 = true
+				// 判断两个异步操作是否均完成
+				fullfill()
+			}, 3000)
+
+			// Promise 实现
+			Promise.all([
+				new Promise((resolve, reject) => {
+					setTimeout(() => {
+						resolve('asyn1 is complete.')
+					}, 2000)
+				}),
+				new Promise((resolve, reject) => {
+					setTimeout(() => {
+						resolve('asyn2 is complete')
+					}, 3600)
+				})
+			]).then(results => {
+				console.log(results)
+			})
+		</script>
+	</body>
+</html>

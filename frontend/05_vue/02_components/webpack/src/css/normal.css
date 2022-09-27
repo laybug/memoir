@@ -1,0 +1,6 @@
+body {
+	width: 100vh;
+	height: 100vh;
+	background: lavender url('../img/img02.jpg') no-repeat center center / contain;
+	text-align: center;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<script src="../js/vue.js"></script>
+		<title>编译作用域&作用域插槽</title>
+	</head>
+
+	<body>
+		<template id="cpn">
+			<div>
+				<!-- 将 names 数据动态绑定在 变量 names 中 -->
+				<slot :names="names"><h3 v-for="item in names">{{item}}</h3></slot>
+			</div>
+		</template>
+
+		<div id="app">
+			<!-- 此处的 isShow 在 Vue 实例和 cpn 组件中均定义了，但引用的是 Vue 实例中的数据。对应模板的所有东西都是在对应模板的作用域内进行编译 -->
+			<cpn v-show="isShow"></cpn>
+
+			<!-- 更改插槽的展示样式 -->
+			<cpn>
+				<template slot-scope="slot">
+					<h5 v-text="slot.names.join(' * ')"></h5>
+				</template>
+			</cpn>
+		</div>
+
+		<script>
+			const cpn = {
+				template: '#cpn',
+				data() {
+					return {
+						isShow: false,
+						names: ['一叶秋', '邓太阿', '李淳罡', '王仙芝', '剑九黄'],
+					}
+				},
+			}
+
+			const app = new Vue({
+				el: '#app',
+				data: {
+					isShow: true,
+				},
+				components: {
+					cpn,
+				},
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta cahrset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<title>promise 的链式编程</title>
+	</head>
+
+	<body>
+		<script>
+			// 需求
+			// 1. 在异步操作后获得的数据上 + 'iris' 并传入到第二层处理函数
+			// 2. 在第一层的数据上 + ' is' 并传入到第三层处理函数
+			// 3. 在第二层的数据上 + ' deity.' 并输出
+
+			// new Promise((resolve, reject) => {
+			// 	setTimeout(() => {
+			// 		// 异步操作获取到数据
+			// 		resolve('!important: ')
+			// 	}, 1000)
+			// })
+			// 	.then(firstData => {
+			// 		// 第一层处理函数
+			// 		let firstDataHandled = firstData + 'iris'
+			// 		// 传入到第二层处理函数
+			// 		return new Promise((resolve, reject) => {
+			// 			resolve(firstDataHandled)
+			// 		})
+			// 	})
+			// 	.then(secondData => {
+			// 		// 第二层处理函数
+			// 		let secondDataHandled = secondData + ' is'
+			// 		// 传入到第三层处理函数
+			// 		return new Promise((resolve, reject) => {
+			// 			resolve(secondDataHandled)
+			// 		})
+			// 	})
+			// 	.then(thirdData => {
+			// 		let thirdDataHandled = thirdData + ' deity.'
+			// 		console.log(thirdDataHandled)
+			// 	})
+
+			// 对上述链式编程的第一次简写
+			// new Promise(resolve => {
+			// 	setTimeout(() => {
+			// 		resolve('!important: ')
+			// 	}, 1000)
+			// })
+			// 	.then(firstData => {
+			// 		// 因为在第二层中中不存在异步操作，所以不用 new 一个 Promise，而是直接调用其 resolve 方法
+			// 		return Promise.resolve(firstData + 'iris')
+			// 	})
+			// 	.then(secondData => {
+			// 		return Promise.resolve(secondData + ' is')
+			// 	})
+			// 	.then(thirdData => {
+			// 		console.log(thirdData + ' deity.')
+			// 	})
+
+			// 对上述代码的第二次简写
+			new Promise((resolve, reject) => {
+				setTimeout(() => {
+					resolve('!important: ')
+				}, 1000)
+			})
+				// 此处会进行 Promise 的内部封装，可直接省略 Promise.resolve
+				.then(firstData => firstData + 'iris')
+				.then(secondData => secondData + ' is')
+				.then(thirdData => console.log(thirdData + ' deity.'))
+		</script>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta cahrset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	</head>
+
+	<body>
+		<script>
+			// 箭头函数多用于将一个函数作为另一个的函数的参数进行传递的场景（回调函数）
+			setTimeout(() => {
+				// 此处的 this 指向的是 window（setTimeout 函数由 window 对象调用）
+				console.log(this)
+			})
+
+			setTimeout(function () {
+				// 此处的 this 指向的也是 window
+				console.log(this)
+			})
+
+			// 箭头函数的 this 指向最近作用域处的 this
+			const obj = {
+				test() {
+					setTimeout(() => {
+						// obj
+						console.log(this)
+					})
+					setTimeout(function () {
+						// window
+						console.log(this)
+
+						setTimeout(() => {
+							// window
+							console.log(this)
+						})
+					})
+				},
+			}
+
+			obj.test()
+		</script>
+	</body>
+</html>
