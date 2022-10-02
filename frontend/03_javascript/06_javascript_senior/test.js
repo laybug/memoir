@@ -8,4 +8,3 @@ function outer(name) {
 }
 
 var inner = outer('shadow')
-inner()
