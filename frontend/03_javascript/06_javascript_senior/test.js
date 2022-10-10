@@ -1,10 +1,8 @@
-function outer(name) {
-  var addr = '云深不知处'
+function foo() {}
 
-  return function () {
-    debugger
-    console.log(name)
-  }
-}
-
-var inner = outer('shadow')
+console.log(foo.prototype.__proto__ === Object.prototype)
+console.log(Function.__proto__ === Function.prototype)
+console.log(Object.__proto__ === Function.prototype)
+console.log(foo.__proto__ === Function.prototype)
+console.log(Function.prototype.__proto__ === Object.prototype)
+console.log(Object.prototype.__proto__ === null)
