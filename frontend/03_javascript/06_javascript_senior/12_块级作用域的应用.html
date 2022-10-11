@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatibale" content="edge" />
+    <mata name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  </head>
+
+  <body>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>4</button>
+
+    <script>
+      const btns = document.getElementsByTagName('button')
+
+      for (let i = 0; i < btns.length; i++) {
+        btns[i].onclick = function () {
+          console.log('第 ' + i + ' 个被点击！')
+        }
+      }
+
+      // 闭包实现
+      // for (var i = 0; i < btns.length; i++) {
+      //   ;(function (n) {
+      //     btns[i].onclick = function () {
+      //       console.log('第 ' + n + ' 个被点击！')
+      //     }
+      //   })(i)
+      // }
+    </script>
+  </body>
+</html>
