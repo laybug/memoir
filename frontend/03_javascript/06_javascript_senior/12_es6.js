@@ -17,7 +17,7 @@
 
 // // 解构 // //
 
-// 数组解
+// 数组解构
 // var arr = ['shadow', 'iris', 'fariy', 'blue']
 
 // var [el1, el2, el3, el4] = arr
@@ -153,32 +153,202 @@
 // // Symbol //
 // Symbol 是新的基本数据类型，可生成一个独一无二的符号用于对象的 key
 
-// 可传入一个参数对 key 进行描述
-const name = Symbol('objName')
-console.log(name.description) // objName
+// // 可传入一个参数对 key 进行描述
+// const name = Symbol('objName')
+// console.log(name.description) // objName
 
-const age = Symbol()
+// const age = Symbol()
 
-const address = Symbol()
+// const address = Symbol()
 
-const gender = Symbol()
+// const gender = Symbol()
 
-// 以 symbol 类型作为 key 的对象创建方式
-const info = {
-  [name]: 'shadow',
-  [age]: 18
-}
+// // 以 symbol 类型作为 key 的对象创建方式
+// const info = {
+//   [name]: 'shadow',
+//   [age]: 18
+// }
 
-// 新增属性
-info[address] = '天那边'
-Object.defineProperty(info, gender, {
-  value: '男',
-  writable: true,
-  configurable: true
-})
+// // 新增属性
+// info[address] = '天那边'
+// Object.defineProperty(info, gender, {
+//   value: '男',
+//   writable: true,
+//   configurable: true
+// })
 
-// 获取以 Symbol 作为 key 的值
-const values = Object.getOwnPropertySymbols(info)
-for (const value of values) {
-  console.log(info[value])
-}
+// // 获取以 Symbol 作为 key 的值
+// const values = Object.getOwnPropertySymbols(info)
+// for (const value of values) {
+//   console.log(info[value])
+// }
+
+// // 创建相同值的 Symbol
+// const key1 = Symbol.for('symbol')
+// const key2 = Symbol.for('symbol')
+// console.log(key1 === key2) // true
+
+// // 获取 key1 的 key
+// const key = Symbol.keyFor(key1)
+// console.log(key) // symbol
+
+// // Set // //
+// // // 新增数据结构，类似数组，但存储的元素不可重复
+// let set = new Set()
+// set.add('shadow')
+// set.add(24)
+
+// // set 中常用的属性和方法
+// console.log(set.size) // 2
+
+// const res1 = set.has(24)
+// console.log(res1) // true
+
+// const res2 = set.delete(24)
+// console.log(res2) // true
+
+// set.clear()
+// console.log(set) // Set(0) {}
+
+// // 将数组转换为 set
+// let arrToset = new Set(['shadow', 24, '天那边'])
+
+// // set 支持 forEach 和 for...of 方法
+// arrToset.forEach(item => {
+//   console.log(item)
+// })
+
+// for (let item of arrToset) {
+//   console.log(item)
+// }
+
+// // 数组去重
+// let arr = ['sahdow', 24, 'fariy', 'sahdow', 12, 24]
+
+// let tempSet = new Set(arr)
+
+// let deduplicationArr1 = Array.from(tempSet)
+// let deduplicationArr2 = [...tempSet]
+
+// console.log(deduplicationArr1) // [ 'sahdow', 24, 'fariy', 12 ]
+// console.log(deduplicationArr2) // [ 'sahdow', 24, 'fariy', 12 ]
+
+// // WeakSet // //
+// // 只能存储对象，不能存储基本数据类型，对存储对象的引用属于弱引用
+// const info = {
+//   name: 'shadow',
+//   age: 24,
+//   friends: ['杜籽藤', '夏建仁']
+// }
+
+// const skills = {
+//   saying: '汪汪汪🐶',
+//   eating: '嗒嗒嗒🐶'
+// }
+
+// let weakSet = new WeakSet()
+
+// // weakSet.add('天那边') // Invalid value used in weak set
+// weakSet.add(info)
+// weakSet.add(skills)
+
+// const res1 = weakSet.has(info)
+// console.log(res1) // true
+
+// const res2 = weakSet.delete(info)
+// console.log(res2) // true
+
+// // weakSet 不能遍历，没有 forEach 方法
+
+// // WeakSet 应用场景
+// // 禁止使用实例本身 this 以外的 this 去调用实例方法（禁止显示改变 this 指向）
+// const instanceThis = new WeakSet()
+
+// class Person {
+//   constructor() {
+//     instanceThis.add(this)
+//   }
+
+//   sayHello() {
+//     if (instanceThis.has(this)) {
+//       console.log('你好呀！')
+//     } else {
+//       console.log('你个贼人，滚蛋！')
+//     }
+//   }
+// }
+
+// const person = new Person()
+
+// person.sayHello() // 你好呀！
+
+// person.sayHello.call('shadow') // 你个贼人，滚蛋！
+
+// // Map // //
+// 存储数据之间的映射关系
+// 在对象中不允许使用对象作为属性名，但 Map 可以
+
+// const info = {
+//   name: 'shadow'
+// }
+
+// const skills = {
+//   saying: '汪汪汪🐶',
+//   eating: '嗒嗒嗒🐶'
+// }
+
+// const profile = { [info]: 'resume' }
+
+// console.log(profile) // { '[object Object]': 'resume' }
+// profile['[object Object]'] = 'introduction'
+// console.log(profile) // { '[object Object]': 'introduction' }
+
+// let map = new Map()
+// map.set(info, 'summary') // Map(1) { { name: 'shadow' } => 'summary' }
+// console.log(map)
+
+// // 传入参数创建 Map
+// let map1 = new Map([
+//   [info, 'summary'],
+//   [skills, 'property']
+// ])
+
+// // 常见属性和方法
+// console.log(map1.size)
+
+// const res1 = map1.get(skills)
+// console.log(res1)
+
+// const res2 = map1.has(info)
+// console.log(res2)
+
+// // Map 支持遍历
+// map1.forEach(item => {
+//   console.log(item)
+// })
+
+// const res3 = map1.delete(info)
+// console.log(res3);
+
+// map1.clear()
+// console.log(map1) // Map(0) {}
+
+// // WeakMap // //
+const info = { name: 'shadow' }
+
+const weakMap = new WeakMap()
+// weakMap.set('name', 'shadow') // Invalid value used as weak map key
+weakMap.set(info, 'resume')
+
+// 常用方法
+const res1 = weakMap.get(info)
+console.log(res1)
+
+const res2 = weakMap.has(info)
+console.log(res2)
+
+// WeakMap 不支持遍历
+
+
+const res3 = weakMap.delete(info)
+console.log(res3)
