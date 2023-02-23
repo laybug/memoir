@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./24_节流.js"></script>
+    <title>节流</title>
+    <style>
+      input {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        outline: none;
+        width: 20%;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" placeholder="please enter content" />
+
+    <script>
+      const inputBtn = document.querySelector('input')
+      let counter = 0
+      function handler(event) {
+        console.log(this, event)
+        return ++counter
+      }
+
+      const throttleProxy = throttle(handler, 2000, {
+        leading: true,
+        trailing: false,
+        resultCallback() {
+          console.log(counter)
+        }
+      })
+      inputBtn.oninput = throttleProxy
+    </script>
+  </body>
+</html>

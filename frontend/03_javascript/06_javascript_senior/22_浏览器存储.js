@@ -64,3 +64,13 @@ class OwCache {
     return this.storage.length
   }
 }
+
+const localCache = new OwCache()
+const sessionCahe = new OwCache(false)
+
+localCache.setItem('shadow', { name: 'shadow', age: 1 })
+console.log(localCache.getItem('shadow'))
+// localCache.removeItem('shadow')
+console.log(localCache.key(0))
+console.log(localCache.length())
+localCache.clear()
